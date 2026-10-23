@@ -264,6 +264,20 @@ body {
   background: var(--brand-fill);
   color: var(--on-brand);
 }
+/* Flat packs on the first row, 3D packs below, as one choice. */
+.pack-picker { display: grid; gap: 6px; }
+.panel .pack-picker { width: 100%; max-width: 460px; }
+
+/* Marks the packs with 3D models. currentColor, so it reads on a pressed
+   button's brand fill as well as an unpressed one. */
+.tag-3d {
+  padding: 0 6px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
 .mode-btn:disabled { opacity: 1; cursor: default; }
 .mode-btn:disabled:not(.active) { color: var(--muted-strong); }
 .panel .mode-toggle { width: 100%; max-width: 460px; }

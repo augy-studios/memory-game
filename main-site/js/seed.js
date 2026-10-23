@@ -1,7 +1,8 @@
 // Seeds: a short code that decides a game's board, so the same code deals
 // the same cards again. Written "NM-BXK4-M9TR": the first letter is the
 // difficulty, the second the picture pack, and the eight after the dash are
-// the seed proper. Pure, so the API and Node can use it too.
+// the seed proper. The pack also decides flat or 3D, so a seed always plays
+// in the view it was played in. Pure, so the API and Node can use it too.
 //
 // Integer arithmetic only. Math.random differs between browsers and would
 // deal a different board on the server.

@@ -4,7 +4,7 @@ import { initUpdateBar } from "./update-bar.js";
 import { Board } from "./board.js";
 import { backToResult, initGame, pause, playSeed, toSetup } from "./game.js";
 import { initLeaderboard, openLeaderboard } from "./leaderboard.js";
-import { getSettings, initSettings, openSettings } from "./settings.js";
+import { initSettings, openSettings } from "./settings.js";
 import { initParty, inParty, openParty, resumeParty } from "./party.js";
 import { ReplayPlayer, replayFromLocation } from "./replay.js";
 import { initFullscreen } from "./fullscreen.js";
@@ -100,16 +100,6 @@ function wireModals() {
   document.getElementById("setupSettingsBtn").addEventListener("click", openSettings);
 }
 
-/* The board view: flat or 3D, from settings, for whichever screen uses the
-   board. 3D falls back to flat where it cannot run, and says so. */
-
-async function applyView(board) {
-  const wanted = getSettings().view;
-  const shown = await board.setView(wanted);
-  document.getElementById("viewNote").textContent =
-    wanted === "3d" && shown !== "3d" ? "3D is not available in this browser, so the board is flat." : "";
-}
-
 function goHome() {
   pause();
   toSetup();
@@ -125,9 +115,14 @@ function boot() {
   initLeaderboard();
   initSettings();
 
-  const board = new Board(document.getElementById("boardHost"), { onFlip: null });
-  applyView(board);
-  document.addEventListener("memy:settings", () => applyView(board));
+  // The pack picks the view. Where 3D cannot run, a 3D pack plays flat and
+  // the new game card says so.
+  const board = new Board(document.getElementById("boardHost"), {
+    onFlip: null,
+    onFallback: () => {
+      document.getElementById("viewNote").textContent = "3D is not available in this browser, so 3D packs play flat.";
+    },
+  });
 
   const replayer = new ReplayPlayer({
     board,

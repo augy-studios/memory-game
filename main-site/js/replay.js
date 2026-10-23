@@ -216,7 +216,7 @@ export class ReplayPlayer {
       .map((m, i) => (m.miss ? `<span style="left:${(i / Math.max(1, moments.length - 1)) * 100}%"></span>` : ""))
       .join("");
 
-    this.board.setup({ count: state.cards.length, cols: state.cols, rows: state.rows, tiles: state.cards });
+    this.board.setup({ count: state.cards.length, cols: state.cols, rows: state.rows, pack: state.setup.seed.pack, tiles: state.cards });
     this.tiles = state.cards;
     this.showSummary(false);
     if (autoplay && moments.length > 1) {

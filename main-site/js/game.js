@@ -109,7 +109,7 @@ function begin(saved, { paused = false } = {}) {
   showView("play");
   $("playStage").append(board.host);
   board.onFlip = onFlip;
-  board.setup({ count: state.cards.length, cols: state.cols, rows: state.rows, tiles: state.cards });
+  board.setup({ count: state.cards.length, cols: state.cols, rows: state.rows, pack: seed.pack, tiles: state.cards });
   $("seedChip").textContent = seed.text;
   $("scoredChip").textContent = g.run ? "Scored" : g.pasted ? "Pasted seed, not scored" : "Offline, not scored";
   $("scoredChip").classList.toggle("muted", !g.run);

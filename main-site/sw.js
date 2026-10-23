@@ -36,7 +36,7 @@
 // 4. Nothing under /api/ is ever cached. A cached leaderboard is a wrong
 //    answer, not a stale one, and a cached run would be somebody else's.
 
-const VERSION = "uwumemy-v3";
+const VERSION = "uwumemy-v5";
 
 const SHELL = `uwumemy-shell-${VERSION}`;
 

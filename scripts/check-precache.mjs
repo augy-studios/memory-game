@@ -57,7 +57,7 @@ for (const dir of ["js", "css", "fonts", "tiles", "models", "vendor"]) {
 const { PACKS } = await import(pathToFileURL(join(ROOT, "js", "rules.js")).href);
 const drift = [];
 for (const [id, pack] of Object.entries(PACKS)) {
-  if (id === "mixed") continue;
+  if (pack.mix) continue;
   const want = pack.tiles.map((t) => t.split("/")[1]).join(" ");
   if (context.__packs[id] !== want) drift.push(`${id}: sw.js and js/rules.js list different pictures`);
   if (pack.models !== context.__models.includes(id)) drift.push(`${id}: models disagree`);

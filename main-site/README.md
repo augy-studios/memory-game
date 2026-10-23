@@ -53,23 +53,25 @@ paused (Resume game).
 **Difficulty.** Easy is 4 by 4, Normal 6 by 4, Hard 6 by 6, Expert 8 by 6. A
 wide board turns on its side on a tall screen.
 
-**Pictures.** Five packs, 114 pictures in all; Mixed draws from every pack. A
-pack smaller than the board is topped up from the others.
+**Pictures.** Five packs, 114 pictures in all. The pack decides the view:
+flat packs play on the flat board, 3D packs on the 3D one, and a board is
+never part of each. Mixed draws from every flat pack, Mixed 3D from every 3D
+pack, and a pack smaller than the board is topped up from the others of its
+kind.
 
-| Pack | Pictures | 3D | Source |
+| Pack | Pictures | View | Source |
 | --- | --- | --- | --- |
-| Jungle | 12 | picture | The original game's tiles |
-| Animals | 30 | picture | Kenney, Animal Pack Redux, CC0 |
-| Food | 30 | models | Kenney, Food Kit, CC0 |
-| Pets | 24 | animated models | Kenney, Cube Pets, CC0 |
-| Holiday | 18 | models | Kenney, Holiday Kit, CC0 |
+| Jungle | 12 | flat | The original game's tiles |
+| Animals | 30 | flat | Kenney, Animal Pack Redux, CC0 |
+| Food | 30 | 3D, models | Kenney, Food Kit, CC0 |
+| Pets | 24 | 3D, animated models | Kenney, Cube Pets, CC0 |
+| Holiday | 18 | 3D, models | Kenney, Holiday Kit, CC0 |
 
-**3D.** Settings, Board view. The same game drawn with three.js: thick cards
-on a table that flip over. Food, pets and holiday cards stand a model on the
-face that turns slowly; the pets idle, cheer on a match and sulk on a miss.
-Jungle and animals show their picture on the face. Where WebGL is not
-available the board stays flat and says so. Replays and party guests use
-whichever view each player has picked.
+**3D.** The 3D packs are drawn with three.js: thick cards on a table that
+flip over, each face with a model on it that turns slowly; the pets idle,
+cheer on a match and sulk on a miss. Where WebGL is not available a 3D pack
+plays flat, and the new game card says so. Replays and party games follow
+the pack, so everyone sees a game in the view it was played in.
 
 **Full screen.** The first header button. The footer goes, the board grows,
 and the header's buttons become the Edge Tray (`edge-tray-spec.md`, as in
@@ -78,8 +80,9 @@ it is open is remembered. Where the browser cannot go full screen, as Safari
 on iPhone, it fills the window instead.
 
 **Seeds.** A seed looks like `NM-BXK4-M9TR`: difficulty (E, N, H, X), pack
-(M mixed, J jungle, A animals, F food, P pets, W holiday), and eight
-characters. The same seed always deals the same board. It shows during play
+(M mixed, J jungle, A animals; D mixed 3D, F food, P pets, W holiday), and
+eight characters. The pack letter also fixes flat or 3D. The same seed
+always deals the same board. It shows during play
 and at the end, where it can be copied; paste one on the new game card or
 the result to play that board. Eight characters on their own use the current
 difficulty and pack.
@@ -123,7 +126,6 @@ else says it is not checked.
 | Leaderboard name | not set | Checked by `/api/leaderboard/name`; also saved by every successful submit. |
 | Add finished games automatically | off | Needs a name. |
 | Play the replay when a game ends | off | |
-| Board view | Flat | Flat or 3D. |
 | Difficulty | Normal | From the next game. |
 | Pictures | Mixed | From the next game. |
 | Time per turn | None | None, 10, 5 or 3 seconds. |

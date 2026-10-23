@@ -20,13 +20,11 @@ const DEFAULTS = {
   name: null,
   auto_submit: false,
   auto_replay: false,
-  view: "flat",
   difficulty: "normal",
   pack: "mixed",
   turn: 0,
   limit: 0,
 };
-const VIEWS = ["flat", "3d"];
 
 let current = null;
 
@@ -41,7 +39,6 @@ function load() {
   if (typeof saved.name === "string" && saved.name.trim()) out.name = saved.name.trim();
   out.auto_submit = saved.auto_submit === true;
   out.auto_replay = saved.auto_replay === true;
-  if (VIEWS.includes(saved.view)) out.view = saved.view;
   out.difficulty = cleanDifficulty(saved.difficulty);
   out.pack = cleanPack(saved.pack);
   out.turn = cleanTurn(saved.turn);
@@ -86,7 +83,6 @@ function render() {
       el.classList.toggle("active", on);
       el.setAttribute("aria-pressed", String(on));
     });
-  press("#viewToggle [data-view]", "view", s.view);
   press("#difficultyToggle [data-difficulty]", "difficulty", s.difficulty);
   press("#packToggle [data-pack]", "pack", s.pack);
   press("#turnToggle [data-turn]", "turn", s.turn);
@@ -145,7 +141,6 @@ export function initSettings() {
       const btn = e.target.closest(`[data-${attr}]`);
       if (btn) saveSettings({ [attr]: clean(btn.dataset[attr]) });
     });
-  pick("viewToggle", "view", (v) => (VIEWS.includes(v) ? v : "flat"));
   pick("difficultyToggle", "difficulty", cleanDifficulty);
   pick("packToggle", "pack", cleanPack);
   pick("turnToggle", "turn", cleanTurn);

@@ -25,9 +25,12 @@ const list = (names) => names.trim().split(/\s+/);
 
 // The order of each list is part of the deal: adding a picture at the end
 // is safe, while reordering or removing one changes every seed's board.
-// `models` packs have a 3D model per picture, in models/<pack>/.
+// `models` packs have a 3D model per picture, in models/<pack>/, and are
+// played on the 3D board; the others are flat. The two `mix` packs draw from
+// every pack of their kind, so a board is never part flat and part 3D.
 export const PACKS = {
-  mixed: { id: "mixed", letter: "M", label: "Mixed", models: false, tiles: [] },
+  mixed: { id: "mixed", letter: "M", label: "Mixed", models: false, mix: true, tiles: [] },
+  mixed3d: { id: "mixed3d", letter: "D", label: "Mixed 3D", models: true, mix: true, tiles: [] },
   jungle: {
     id: "jungle",
     letter: "J",
@@ -71,10 +74,15 @@ export const PACKS = {
   },
 };
 
-// A tile id is "pack/name". Mixed is every other pack, in order.
+// A tile id is "pack/name". A mix is every pack of its kind, in order.
 for (const pack of Object.values(PACKS)) pack.tiles = pack.tiles.map((name) => `${pack.id}/${name}`);
 export const ALL_TILES = Object.values(PACKS).flatMap((p) => p.tiles);
-PACKS.mixed.tiles = [...ALL_TILES];
+const tilesOfKind = (models) => Object.values(PACKS).filter((p) => !p.mix && p.models === models).flatMap((p) => p.tiles);
+PACKS.mixed.tiles = tilesOfKind(false);
+PACKS.mixed3d.tiles = tilesOfKind(true);
+
+// Whether a pack is played on the 3D board.
+export const isPack3d = (pack) => PACKS[pack]?.models === true;
 
 export const tilePack = (tile) => String(tile).split("/")[0];
 export const tileName = (tile) => String(tile).split("/")[1] ?? "";
@@ -164,14 +172,16 @@ function shuffle(items, next) {
 }
 
 // The board a seed deals: a tile id per card, in reading order. A pack with
-// fewer pictures than the board needs is topped up from the others.
+// fewer pictures than the board needs is topped up from the other packs of
+// its kind, flat from flat and 3D from 3D.
 export function deal(seed) {
   const d = DIFFICULTIES[seed.difficulty];
   const next = randomSource(`deal|${seed.text}`);
-  const own = PACKS[seed.pack].tiles;
+  const pack = PACKS[seed.pack];
+  const own = pack.tiles;
   const chosen = shuffle([...own], next).slice(0, d.pairs);
   if (chosen.length < d.pairs) {
-    const others = ALL_TILES.filter((t) => !own.includes(t));
+    const others = tilesOfKind(pack.models).filter((t) => !own.includes(t));
     chosen.push(...shuffle(others, next).slice(0, d.pairs - chosen.length));
   }
   return shuffle([...chosen, ...chosen], next);

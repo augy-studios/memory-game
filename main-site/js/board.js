@@ -1,6 +1,7 @@
 // The board on screen, in either view. The flat board is a grid of buttons
 // that flip in CSS. The 3D board (js/board3d.js, three.js) draws the same
-// cards on a table and is loaded only when chosen.
+// cards on a table and is loaded only when needed. The pack decides which:
+// a pack with 3D models is played in 3D, any other flat.
 //
 // The flat buttons are always there: in 3D they are invisible but still
 // take keyboard focus and screen readers, and the 3D board shows which card
@@ -10,7 +11,7 @@
 // pictures it may show, and which cards are face up or matched, and it says
 // which card somebody picked.
 
-import { PACKS, tileLabel, tilePack } from "./rules.js";
+import { PACKS, isPack3d, tileLabel, tilePack } from "./rules.js";
 
 export const tileImage = (tile) => `/tiles/${tile}.png`;
 export const tileModel = (tile) => (PACKS[tilePack(tile)]?.models ? `/models/${tile}.glb` : null);
@@ -169,9 +170,11 @@ class FlatBoard {
 }
 
 export class Board {
-  constructor(host, { onFlip }) {
+  // onFallback: called when a 3D pack has to be shown flat.
+  constructor(host, { onFlip, onFallback }) {
     this.host = host;
     this.onFlip = onFlip;
+    this.onFallback = onFallback;
     this.layer = document.createElement("div");
     this.layer.className = "board-layer";
     host.append(this.layer);
@@ -219,17 +222,24 @@ export class Board {
       console.warn("3D board unavailable:", err);
       this.view = "flat";
       this.host.classList.remove("is-3d");
+      this.onFallback?.();
       return "flat";
     }
   }
 
-  // shape: { count, cols, rows, tiles? } where tiles, when known, lets the
-  // 3D board load its models before they are needed.
+  // shape: { count, cols, rows, pack, tiles? } where the pack picks the view,
+  // and tiles, when known, let the 3D board load its models before they are
+  // needed.
   setup(shape) {
     this.shape = shape;
     this.last = null;
     this.flat.setup(shape);
-    this.three?.setup(shape);
+    const view = isPack3d(shape.pack) ? "3d" : "flat";
+    if (view === "3d" && this.three) {
+      this.three.setup(shape);
+      return;
+    }
+    this.setView(view);
   }
 
   render(state) {

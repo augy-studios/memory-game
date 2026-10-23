@@ -47,9 +47,10 @@ for (const d of Object.values(DIFFICULTIES)) {
     cards.forEach((c) => counts.set(c, (counts.get(c) ?? 0) + 1));
     const pairsOk = cards.length === d.pairs * 2 && [...counts.values()].every((n) => n === 2) && cards.every((c) => ALL_TILES.includes(c));
     if (!pairsOk) check(`deal ${d.id}/${p}`, false);
+    if (!cards.every((c) => PACKS[c.split("/")[0]].models === PACKS[p].models)) check(`deal ${d.id}/${p} stays one kind`, false);
   }
 }
-check("every difficulty and pack deals whole pairs of real pictures", true);
+check("every difficulty and pack deals whole pairs of real pictures, all flat or all 3D", true);
 
 // Players. `memory` is the chance a seen card is remembered; `knows` plays
 // as if it could see every card.

@@ -165,7 +165,7 @@ function renderParty(snap) {
     if (remount) $("partyStage").append(board.host);
     board.onFlip = onBoardFlip;
     if (remount || drawn.game !== snap.game) {
-      board.setup({ count: snap.shape.count, cols: snap.shape.cols, rows: snap.shape.rows });
+      board.setup({ count: snap.shape.count, cols: snap.shape.cols, rows: snap.shape.rows, pack: snap.options.pack });
       drawn = { game: snap.game, pulse: snap.pulse?.n ?? -1, sig: "" };
     }
     const tiles = snap.status.map((_, i) => snap.faces[i] ?? null);

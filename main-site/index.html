@@ -282,13 +282,18 @@
                         <button class="mode-btn" type="button" data-difficulty="expert" aria-pressed="false">Expert</button>
                     </div>
                     <p class="field-label">Pictures</p>
-                    <div class="mode-toggle thirds" id="pPack">
-                        <button class="mode-btn" type="button" data-pack="mixed" aria-pressed="false">Mixed</button>
-                        <button class="mode-btn" type="button" data-pack="jungle" aria-pressed="false">Jungle</button>
-                        <button class="mode-btn" type="button" data-pack="animals" aria-pressed="false">Animals</button>
-                        <button class="mode-btn" type="button" data-pack="food" aria-pressed="false">Food</button>
-                        <button class="mode-btn" type="button" data-pack="pets" aria-pressed="false">Pets</button>
-                        <button class="mode-btn" type="button" data-pack="holiday" aria-pressed="false">Holiday</button>
+                    <div class="pack-picker" id="pPack">
+                        <div class="mode-toggle thirds">
+                            <button class="mode-btn" type="button" data-pack="mixed" aria-pressed="false">Mixed</button>
+                            <button class="mode-btn" type="button" data-pack="jungle" aria-pressed="false">Jungle</button>
+                            <button class="mode-btn" type="button" data-pack="animals" aria-pressed="false">Animals</button>
+                        </div>
+                        <div class="mode-toggle">
+                            <button class="mode-btn" type="button" data-pack="mixed3d" aria-pressed="false">Mixed <span class="tag-3d">3D</span></button>
+                            <button class="mode-btn" type="button" data-pack="food" aria-pressed="false">Food <span class="tag-3d">3D</span></button>
+                            <button class="mode-btn" type="button" data-pack="pets" aria-pressed="false">Pets <span class="tag-3d">3D</span></button>
+                            <button class="mode-btn" type="button" data-pack="holiday" aria-pressed="false">Holiday <span class="tag-3d">3D</span></button>
+                        </div>
                     </div>
                     <p class="field-label">Time per turn</p>
                     <div class="mode-toggle quarters" id="pTurn">
@@ -432,12 +437,6 @@
                 <span class="switch-state"></span><span class="switch" aria-hidden="true"></span>
             </button>
 
-            <p class="modal-section-label">Board view</p>
-            <div class="mode-toggle" id="viewToggle">
-                <button class="mode-btn" type="button" data-view="flat" aria-pressed="false"><span data-icon="grid"></span>Flat</button>
-                <button class="mode-btn" type="button" data-view="3d" aria-pressed="false"><span data-icon="cube"></span>3D</button>
-            </div>
-
             <p class="modal-section-label">Difficulty</p>
             <div class="mode-toggle quarters" id="difficultyToggle">
                 <button class="mode-btn" type="button" data-difficulty="easy" aria-pressed="false">Easy</button>
@@ -448,15 +447,19 @@
             <p class="mode-note">Easy is 4 by 4, Normal 6 by 4, Hard 6 by 6, Expert 8 by 6. Bigger boards score 150%, 225% and 350%.</p>
 
             <p class="modal-section-label">Pictures</p>
-            <div class="mode-toggle thirds" id="packToggle">
-                <button class="mode-btn" type="button" data-pack="mixed" aria-pressed="false">Mixed</button>
-                <button class="mode-btn" type="button" data-pack="jungle" aria-pressed="false">Jungle</button>
-                <button class="mode-btn" type="button" data-pack="animals" aria-pressed="false">Animals</button>
-                <button class="mode-btn" type="button" data-pack="food" aria-pressed="false">Food</button>
-                <button class="mode-btn" type="button" data-pack="pets" aria-pressed="false">Pets</button>
-                <button class="mode-btn" type="button" data-pack="holiday" aria-pressed="false">Holiday</button>
+            <div class="pack-picker" id="packToggle">
+                <div class="mode-toggle thirds">
+                    <button class="mode-btn" type="button" data-pack="mixed" aria-pressed="false">Mixed</button>
+                    <button class="mode-btn" type="button" data-pack="jungle" aria-pressed="false">Jungle</button>
+                    <button class="mode-btn" type="button" data-pack="animals" aria-pressed="false">Animals</button>
+                </div>
+                <div class="mode-toggle">
+                    <button class="mode-btn" type="button" data-pack="mixed3d" aria-pressed="false">Mixed <span class="tag-3d">3D</span></button>
+                    <button class="mode-btn" type="button" data-pack="food" aria-pressed="false">Food <span class="tag-3d">3D</span></button>
+                    <button class="mode-btn" type="button" data-pack="pets" aria-pressed="false">Pets <span class="tag-3d">3D</span></button>
+                    <button class="mode-btn" type="button" data-pack="holiday" aria-pressed="false">Holiday <span class="tag-3d">3D</span></button>
+                </div>
             </div>
-            <p class="mode-note">Food, Pets and Holiday have 3D models in the 3D view. A pack too small for the board is topped up from the others.</p>
 
             <p class="modal-section-label">Time per turn</p>
             <div class="mode-toggle quarters" id="turnToggle">
