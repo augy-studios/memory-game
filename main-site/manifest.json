@@ -1,16 +1,24 @@
 {
     "name": "Memory Game by UwU Apps",
     "short_name": "Memory Game",
-    "description": "A simple uwumemy app; view live uwumemy at a glance!",
+    "description": "Flip cards and find every pair, flat or in 3D. Race the clock, share seeds and replays, or play friends on the same wifi.",
     "icons": [{
-            "src": "XMM-192.png",
+            "src": "/XMM-192.png",
             "type": "image/png",
-            "sizes": "192x192"
+            "sizes": "192x192",
+            "purpose": "any"
         },
         {
-            "src": "XMM-512.png",
+            "src": "/XMM-512.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "512x512",
+            "purpose": "any"
+        },
+        {
+            "src": "/XMM-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
         }
     ],
     "screenshots": [{
@@ -22,13 +30,13 @@
         {
             "src": "/images/screenshot_2.png",
             "type": "image/png",
-            "sizes": "1920x1080",
+            "sizes": "1920x988",
             "form_factor": "wide"
         }
     ],
     "start_url": "/",
-    "theme_color": "#cfc",
-    "background_color": "#cfc",
+    "theme_color": "#ccffcc",
+    "background_color": "#ccffcc",
     "display": "standalone",
     "display_override": ["fullscreen", "minimal-ui", "window-controls-overlay"],
     "orientation": "any",
@@ -37,8 +45,7 @@
     "scope": "/",
     "lang": "en",
     "categories": [
-        "entertainment",
-        "lifestyle",
-        "utilities"
+        "games",
+        "entertainment"
     ]
 }

@@ -6,5 +6,28 @@
     "rewrites": [{
         "source": "/",
         "destination": "/"
+    }, {
+        "source": "/join",
+        "destination": "/"
+    }, {
+        "source": "/r/:id([A-Za-z0-9]{8})",
+        "destination": "/"
+    }],
+    "functions": {
+        "api/leaderboard/submit.js": {
+            "maxDuration": 30,
+            "includeFiles": "js/{rules,seed}.js"
+        },
+        "api/run/start.js": {
+            "includeFiles": "js/{rules,seed}.js"
+        },
+        "api/replay/create.js": {
+            "maxDuration": 30,
+            "includeFiles": "js/{rules,seed,replay-format}.js"
+        }
+    },
+    "headers": [{
+        "source": "/sw.js",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
     }]
 }
